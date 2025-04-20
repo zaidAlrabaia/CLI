@@ -1,51 +1,35 @@
-import csv
-import os
-class student:
-    numberOfStudents = 0
-    def __init__(self, firstName, familyName, personalID, program, grade):
-        self.__firstName = firstName
-        self.__familyName = familyName
-        self.__personalID = personalID
-        self.__program = program
-        self.__grade = grade
-        student.numberOfStudents += 1
+from studentClass import student
 
-        csvFilePath = "studentList.csv"
-        found = student.studentFinder(personalID, csvFilePath)
-
-        with open(csvFilePath, "a", newline="") as file:
-            writer = csv.writer(file)
-            if os.path.getsize(csvFilePath) == 0:
-                writer.writerow(["First name","Family Name","Personal ID","Program","Grade"])
-            if not found:
-                writer.writerow([firstName,familyName,personalID,program,grade])
-            else:
-                print("The student " + firstName + " " + familyName + " already exists")
-
-    def get_firstName(self):
-        return self.__firstName
-    def get_familyName(self):
-        return self.__familyName
-    def get_personalID(self):
-        return self.__personalID
-    def get_program(self):
-        return self.__program
-    def get_grade(self):
-        return self.__grade
+def main():
+    student.clean_table(student.csvFilePath)
+    print("current number of students is: " + str(student.get_numberOfStudents()))
+    repeat = True
+    looped = 0
     
-    @staticmethod
-    def studentFinder(personalID, csvFile):
-        if os.path.exists(csvFile):
-            with open(csvFile, "r") as file:
-                reader = csv.reader(file)
-                for row in reader:
-                    if row[2] == personalID:
-                        return True
-        return False
-    
-Zaid = student("zaid", "alrabaia", "20020811-6814", "TCOMK", "A*")
-print(Zaid.get_firstName())
-print(Zaid.get_familyName())
-print(Zaid.get_personalID())
-print(Zaid.get_program())
-print(Zaid.get_grade())
+    while repeat:
+        if looped == 0:
+            print("Welcome to the Student Grade tracker! What would you like to do?\n1. Add a new student\n2. View all students\n3. Search for a specific student\n4. Delete a student\n5. Exit ")
+        else:
+             print("Welcome Back! What would you like to do?\n1. Add a new student\n2. View all students\n3. Search for a specific student\n4. Delete a student\n5. Exit ")
+
+        looped += 1
+
+        choice = input("Write your answer or write your choice number: ").lower()
+
+        if choice == "add a new student" or choice == "1":
+            student.addStudent
+            continue
+
+        elif choice == "view all students" or choice == "2":
+            student.viewAllStudents(student.csvFilePath)
+            continue
+        elif choice == "search for a specific student" or choice == "3":
+            student.searchForStudent(student.csvFilePath)
+        elif choice == "delete a student" or choice == "4":
+            student.deleteStudent(student.csvFilePath)
+        elif choice == "exit" or choice == "5":
+            print("BYE")
+            break
+
+if __name__ == "__main__":
+    main()

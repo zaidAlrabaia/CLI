@@ -5,7 +5,7 @@ def main():
     print("current number of students is: " + str(student.get_numberOfStudents()))
     repeat = True
     looped = 0
-    
+
     while repeat:
         if looped == 0:
             print("Welcome to the Student Grade tracker! What would you like to do?\n1. Add a new student\n2. View all students\n3. Search for a specific student\n4. Delete a student\n5. Exit ")
@@ -17,7 +17,7 @@ def main():
         choice = input("Write your answer or write your choice number: ").lower()
 
         if choice == "add a new student" or choice == "1":
-            student.addStudent
+            student.addStudent(student.csvFilePath)
             continue
 
         elif choice == "view all students" or choice == "2":

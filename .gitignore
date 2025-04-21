@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Temp files
+tempCodeRunnerFile.py
+
+# CSV file (optional: only if you don’t want to push student data)
+# studentList.csv
+
+# VS Code settings (optional)
+.vscode/

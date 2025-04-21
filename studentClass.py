@@ -1,5 +1,16 @@
 import csv
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename = "log.log",filemode="a", format = "%(asctime)s -- %(levelname)s --  %(message)s")
+logger = logging.getLogger(__name__)
+
+#logging.debug()
+#logging.info()
+#logging.warning()
+#logging.error()
+#logging.critical()
+
 class student:
     numberOfStudents = 0
     csvFilePath = "studentList.csv"
@@ -7,7 +18,7 @@ class student:
         try:
             student.validate_student_input(firstName,familyName,personalID,program,grade)
         except Exception as e:
-            print("There was a validation error: " + str(e))
+            logger.warning("There was a validation error: " + str(e))
         self.__firstName = firstName
         self.__familyName = familyName
         self.__personalID = personalID
@@ -23,7 +34,7 @@ class student:
             if not found:
                 writer.writerow([firstName,familyName,personalID,program,grade])
             else:
-                print("The student " + firstName + " " + familyName + " already exists")
+                logger.warning("The student " + firstName + " " + familyName + " already exists")
     
     @staticmethod
     def get_numberOfStudents():
@@ -40,7 +51,7 @@ class student:
                             student.numberOfStudents += 1
                 print(student.numberOfStudents)
             except Exception as e:
-                print("Something went wrong: " + str(e))
+                logger.error("Something went wrong: " + str(e))
 
     def get_firstName(self):
         return self.__firstName
@@ -56,7 +67,7 @@ class student:
     @staticmethod
     def studentFinder(personalID, csvFile):
         if not os.path.exists(csvFile):
-            print("Hello g! File not found do sumn bout it")
+            logger.warning("Hello g! File not found do sumn bout it")
             return False
         try:
             with open(csvFile, "r") as file:
@@ -67,7 +78,7 @@ class student:
                     if row[2] == personalID:
                         return True
         except Exception as e:
-            print("Error reading from file: " + str(e))
+            logger.error("Error reading from file: " + str(e))
         return False
     
     @staticmethod
@@ -96,7 +107,7 @@ class student:
     @staticmethod
     def clean_table(file_path):
         if not os.path.exists(file_path):
-            print("File does not exist")
+            logger.warning("File does not exist")
             return
         updated_list = []
         try:
@@ -106,20 +117,20 @@ class student:
                     if  row and any(cell.strip() for cell in row):
                         updated_list.append(row)
         except Exception as e:
-                print("Error reading file: " + str(e))
+                logger.error("Error reading file: " + str(e))
                 return
         try:
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerows(updated_list)
         except Exception as e:
-            print("There was an error writing the table: " + str(e))
+            logger.error("There was an error writing the table: " + str(e))
             return
     
     @staticmethod
     def viewAllStudents(file_path):
         if not os.path.exists(file_path):
-            print("MY BROTHER! FILE NOT FOUND")
+            logger.warning("MY BROTHER! FILE NOT FOUND")
             return
         
         columnWidths = []
@@ -129,7 +140,7 @@ class student:
                 headers = next(reader, None)
 
                 if not headers:
-                    print("The file is most likely empty and would cause a crash")
+                    logger.warning("The file is most likely empty and would cause a crash")
                     return
                 
                 rows = list(reader)
@@ -152,7 +163,7 @@ class student:
                     print(" | ".join(padded_row))
 
         except Exception as e:
-            print("IDK what happened but sumn went wrong with the view all students method: " + str(e))
+            logger.error("IDK what happened but sumn went wrong with the view all students method: " + str(e))
     
     @staticmethod
     def addStudent(file_path):
@@ -164,25 +175,25 @@ class student:
                 grade = input("Please write student grade: ").strip()
                 
                 if student.studentFinder(personalID, file_path):
-                    print("Student already exists")
+                    logger.warning("Student already exists")
                     return
                 
                 student(name,familyName,personalID,program,grade)
                 student.numberOfStudents += 1
 
             except ValueError as ve:
-                print("Value Error: " + str(ve))
+                logger.error("Value Error: " + str(ve))
             except Exception as e:
-                print("Something went wrong with the user input: " + str(e))
+                logger.error("Something went wrong with the user input: " + str(e))
 
     @staticmethod
     def searchForStudent(file_path):
         if not os.path.exists(file_path):
-            print("File not found")
+            logger.warning("File not found")
             return
         
         if os.path.getsize(file_path) == 0:
-            print("file is empty")
+            logger.warning("file is empty")
             return
         
         personalID = input("Please write the personal ID number: ").strip()
@@ -191,9 +202,11 @@ class student:
             with open(file_path, "r") as file:
                 reader = csv.reader(file)
                 headers = next(reader, None)
+                
                 if not headers:
-                    print("Header row is missing")
+                    logger.warning("Header row is missing")
                     return
+                
                 rows = list(reader)
                 columns = list(zip(*[headers] + rows))
                 padded_column = []
@@ -215,18 +228,18 @@ class student:
                         print(" | ".join(padded_row))
                         return padded_row
                 if not found:
-                    print("Student not found")
+                    logger.info("Student not found")
         except Exception as e:
-            print("Sumn went wrong: " + str(e))
+            logger.error("Sumn went wrong: " + str(e))
 
     @staticmethod
     def deleteStudent(file_path):
         if not os.path.exists(file_path):
-            print("File not found")
+            logger.warning("File not found")
             return
         
         if os.path.getsize(file_path) == 0:
-            print("File is empty broski")
+            logger.info("File is empty broski")
             return
 
         personalID = input("Please write the personal ID of the student you want to delete: ").strip()
@@ -258,8 +271,8 @@ class student:
             if deleted:
                 print(f" Student with ID {personalID} was deleted.")
             else:
-                print(f" Student with ID {personalID} not found.")
+                logger.info(f" Student with ID {personalID} not found.")
         
         except Exception as e:
-            print(" Something went wrong during deletion:", str(e))
+            logger.error(" Something went wrong during deletion:", str(e))
 

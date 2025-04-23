@@ -5,12 +5,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG, filename = "log.log",filemode="a", format = "%(asctime)s -- %(levelname)s --  %(message)s")
 logger = logging.getLogger(__name__)
 
-#logging.debug()
-#logging.info()
-#logging.warning()
-#logging.error()
-#logging.critical()
-
 class student:
     numberOfStudents = 0
     csvFilePath = "studentList.csv"
@@ -169,15 +163,25 @@ class student:
     def addStudent(file_path):
             try:
                 name = input("Please write student first name: ").strip()
+                if not name.isalpha():
+                    raise ValueError("First name must only contain alphabet character")
                 familyName = input("Please write student family name: ").strip()
+                if not familyName.isalpha():
+                    raise ValueError("Family name must only contain alphabet character")
                 personalID = input("Please write student personal Id (10 or 12 digits): ").strip()
+                if not all (char in "0123456789-" for char in personalID) or len(personalID) not in [11,13]:
+                    raise ValueError("Personal ID format is wrong")
                 program = input("Please write student program: ").strip()
                 grade = input("Please write student grade: ").strip()
+                if grade not in ["F", "Fx", "E", "D", "C", "B", "A", "A*"]:
+                    raise ValueError("wrong grade format")
                 
                 if student.studentFinder(personalID, file_path):
                     logger.warning("Student already exists")
                     return
                 
+                student.validate_student_input(name,familyName,personalID,program,grade)
+
                 student(name,familyName,personalID,program,grade)
                 student.numberOfStudents += 1
 

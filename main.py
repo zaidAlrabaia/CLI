@@ -1,4 +1,7 @@
 from studentClass import student
+from studentClass import logger
+
+logger.info("CLI App Started")
 
 def main():
     student.clean_table(student.csvFilePath)

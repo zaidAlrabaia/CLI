@@ -1,9 +1,26 @@
 import csv
 import os
 import logging
+from logging.handlers import TimedRotatingFileHandler
+from datetime import time
 
-logging.basicConfig(level=logging.DEBUG, filename = "log.log",filemode="a", format = "%(asctime)s -- %(levelname)s --  %(message)s")
-logger = logging.getLogger(__name__)
+if not os.path.exists("logs"):
+    os.mkdir("logs")
+log_file_path = os.path.join("logs", "student_tracker.log")
+loggingTime = time(17,0)
+
+def setup_logger():
+    handler = TimedRotatingFileHandler(log_file_path, when="midnight", interval = 1,  backupCount = 7, encoding = None, delay = True, utc = False, atTime = loggingTime)
+    log_format = logging.Formatter("%(asctime)s -- %(levelname)s -- %(message)s")
+    handler.setFormatter(log_format)
+
+    logger = logging.getLogger("StudentLogger")
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(handler)
+
+    return logger
+
+logger = setup_logger()
 
 class student:
     numberOfStudents = 0

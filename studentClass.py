@@ -60,9 +60,9 @@ class student:
                             continue
                         else:
                             student.numberOfStudents += 1
-                print(student.numberOfStudents)
             except Exception as e:
                 logger.error("Something went wrong: " + str(e))
+        return student.numberOfStudents
 
     def get_firstName(self):
         return self.__firstName
@@ -102,6 +102,8 @@ class student:
         elif len(personalID) == 13 and personalID[8] != "-" and "-" in personalID:
             raise ValueError("Please write 10 or 12 digit Personal ID number")
         elif len(personalID) in [11, 13] and not all (char in "0123456789-" for char in personalID):
+            raise ValueError("Please write 10 or 12 digit Personal ID number")
+        elif len(personalID) not in [11,13]:
             raise ValueError("Please write 10 or 12 digit Personal ID number")
         return personalID
     

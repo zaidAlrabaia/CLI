@@ -91,7 +91,28 @@ class student:
         except Exception as e:
             logger.error("Error reading from file: " + str(e))
         return False
+    @staticmethod
+    def normalize_personal_ID(personalID):
+        if len(personalID) == 10 and all(char.isdigit() for char in personalID):
+            return personalID[:6] + "-" + personalID[6:]
+        elif len(personalID) == 12 and all(char.isdigit() for char in personalID):
+            return personalID[:8] + "-" + personalID[8:]
+        elif len(personalID) == 11 and personalID[6] != "-" and "-" in personalID:
+            raise ValueError("Please write 10 or 12 digit Personal ID number")
+        elif len(personalID) == 13 and personalID[8] != "-" and "-" in personalID:
+            raise ValueError("Please write 10 or 12 digit Personal ID number")
+        elif len(personalID) in [11, 13] and not all (char in "0123456789-" for char in personalID):
+            raise ValueError("Please write 10 or 12 digit Personal ID number")
+        return personalID
     
+    @staticmethod
+    def personalID_checker(personalID):
+        if len(personalID) == 11:
+            return personalID[6] == "-" and personalID[:6].isdigit() and personalID[7:].isdigit()
+        elif len(personalID) == 13:
+            return personalID[8] == "-" and personalID[:8].isdigit() and personalID[9:].isdigit()
+        return False
+
     @staticmethod
     def validate_student_input(firstName, familyName, personalID, program, grade):
         fields = [firstName,familyName,personalID,program,grade]
@@ -110,7 +131,7 @@ class student:
             raise ValueError("all inputs must be strings")
         if not firstName.isalpha() or not familyName.isalpha():
             raise ValueError("name must only contain alphabet character")
-        if not all (char in "0123456789-" for char in personalID) or len(personalID) not in [11,13]:
+        if not student.personalID_checker(personalID):
             raise ValueError("Personal ID format is wrong")
         if grade not in ["F", "Fx", "E", "D", "C", "B", "A", "A*"]:
             raise ValueError("wrong grade format")
@@ -179,16 +200,21 @@ class student:
     @staticmethod
     def addStudent(file_path):
             try:
-                name = input("Please write student first name: ").strip()
+                name = input("Please write student first name: ").strip().capitalize()
                 if not name.isalpha():
                     raise ValueError("First name must only contain alphabet character")
-                familyName = input("Please write student family name: ").strip()
+                
+                familyName = input("Please write student family name: ").strip().capitalize()
                 if not familyName.isalpha():
                     raise ValueError("Family name must only contain alphabet character")
+                
                 personalID = input("Please write student personal Id (10 or 12 digits): ").strip()
-                if not all (char in "0123456789-" for char in personalID) or len(personalID) not in [11,13]:
+                personalID = student.normalize_personal_ID(personalID)
+                if not student.personalID_checker(personalID):
                     raise ValueError("Personal ID format is wrong")
-                program = input("Please write student program: ").strip()
+
+                program = input("Please write student program: ").strip().upper()
+
                 grade = input("Please write student grade: ").strip()
                 if grade not in ["F", "Fx", "E", "D", "C", "B", "A", "A*"]:
                     raise ValueError("wrong grade format")

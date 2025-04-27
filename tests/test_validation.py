@@ -3,6 +3,7 @@ import sys
 import os
 import sys
 import csv
+from unittest.mock import patch
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from studentClass import student
@@ -76,13 +77,46 @@ class Testing(unittest.TestCase):
             student.validate_student_input(firstName="Maria",familyName="Barcelona",personalID="20020811-6721",program="tcomk",grade="A")
         except Exception as e:
             self.fail("validate_student_input went wrong with exception: " + str(e))
-
     
+    def test_viewAllStudents(self):
+        tempList = student.viewAllStudents(student.csvFilePath, print_mode=False)
+        
+        columnWidths = []
+        myList = []
+        with open(student.csvFilePath, "r") as file:
+            reader = csv.reader(file)
+            headers = next(reader, None)
+                
+            rows = list(reader)
+            columns = list(zip(*([headers]+rows)))
 
+            for col in columns:
+                max_len = max(len(cell) for cell in col)
+                columnWidths.append(max_len)
 
+            for row in rows:
+                padded_row = []
+                for i, cell in enumerate(row):
+                    padded_row.append(cell.ljust(columnWidths[i]))
+                myList.append(" | ".join(padded_row)) 
 
+        self.assertListEqual(myList, tempList)
 
+    def test_addStudent(self):
+        inputs = ["Zaid", "Alrabaia", "1234512345", "TCOMK", "A*"]
+        with patch("builtins.input", side_effect = inputs):
+            myList = student.addStudent(self.test_file)
+        with open(self.test_file, "r") as file:
+            reader = csv.reader(file)
+            rows = list(reader)
 
+        last_row = rows[-1]
+
+        self.assertEqual(last_row[0], "Zaid")           
+        self.assertEqual(last_row[1], "Alrabaia")        
+        self.assertEqual(last_row[2], "123451-2345")   
+        self.assertEqual(last_row[3], "TCOMK")           
+        self.assertEqual(last_row[4], "A*")              
 
 
 

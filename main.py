@@ -24,7 +24,9 @@ def main():
             continue
 
         elif choice == "view all students" or choice == "2":
-            student.viewAllStudents(student.csvFilePath)
+            myList = student.viewAllStudents(student.csvFilePath)
+            for row in myList:
+                print(row)
             continue
         elif choice == "search for a specific student" or choice == "3":
             student.searchForStudent(student.csvFilePath)

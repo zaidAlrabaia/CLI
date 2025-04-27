@@ -162,13 +162,14 @@ class student:
             return
     
     @staticmethod
-    def viewAllStudents(file_path):
+    def viewAllStudents(file_path, print_mode=True):
         if not os.path.exists(file_path):
             logger.warning("MY BROTHER! FILE NOT FOUND")
             return
         
         columnWidths = []
         try:
+            myList = []
             with open(file_path, "r") as file:
                 reader = csv.reader(file)
                 headers = next(reader, None)
@@ -187,17 +188,23 @@ class student:
                 header_row = []
                 for i, cell in enumerate(headers):
                     header_row.append(cell.ljust(columnWidths[i]))
-                print(" | ".join(header_row))
-                print("-" * sum(columnWidths) + "-"*12)
+                
+                if print_mode:
+                    print(" | ".join(header_row))
+                    print("-" * (sum(columnWidths) + 12))
+
 
                 for row in rows:
                     padded_row = []
                     for i, cell in enumerate(row):
                         padded_row.append(cell.ljust(columnWidths[i]))
-                    print(" | ".join(padded_row))
+                    myList.append(" | ".join(padded_row)) 
 
         except Exception as e:
             logger.error("IDK what happened but sumn went wrong with the view all students method: " + str(e))
+            return
+        
+        return myList
     
     @staticmethod
     def addStudent(file_path):
@@ -230,13 +237,15 @@ class student:
                 student(name,familyName,personalID,program,grade)
                 student.numberOfStudents += 1
 
+                return [name,familyName, personalID,program,grade]
+
             except ValueError as ve:
                 logger.error("Value Error: " + str(ve))
             except Exception as e:
                 logger.error("Something went wrong with the user input: " + str(e))
 
     @staticmethod
-    def searchForStudent(file_path):
+    def searchForStudent(file_path, print_mode = True):
         if not os.path.exists(file_path):
             logger.warning("File not found")
             return
@@ -271,10 +280,12 @@ class student:
                     if row[2].strip() == personalID.strip():
                         found = True
                         padded_row= []
-                        print(" | ".join(padded_header))
+                        if print_mode:
+                            print(" | ".join(padded_header))
                         for i, cell in enumerate(row):
                             padded_row.append(cell.ljust(padded_column[i]))
-                        print(" | ".join(padded_row))
+                        if print_mode:
+                            print(" | ".join(padded_row))
                         return padded_row
                 if not found:
                     logger.info("Student not found")

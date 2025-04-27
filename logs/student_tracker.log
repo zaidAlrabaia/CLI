@@ -1,7 +1,40 @@
-2025-04-23 18:21:56,661 -- INFO -- CLI App Started
-2025-04-23 18:22:03,870 -- ERROR -- Value Error: First name must only contain alphabet character
-2025-04-23 19:47:57,158 -- INFO -- CLI App Started
-2025-04-23 19:48:24,807 -- INFO -- CLI App Started
-2025-04-23 20:39:22,211 -- INFO -- CLI App Started
-2025-04-23 20:39:25,655 -- ERROR -- Value Error: First name must only contain alphabet character
-2025-04-23 20:40:16,860 -- ERROR -- Value Error: Personal ID format is wrong
+2025-04-27 19:06:03,308 -- INFO -- CLI App Started
+2025-04-27 19:08:17,654 -- INFO -- CLI App Started
+2025-04-27 19:21:01,129 -- INFO -- CLI App Started
+2025-04-27 19:21:31,169 -- INFO -- CLI App Started
+2025-04-27 19:24:17,020 -- INFO -- CLI App Started
+2025-04-27 19:27:51,088 -- INFO -- CLI App Started
+2025-04-27 19:30:11,906 -- INFO -- CLI App Started
+2025-04-27 19:30:33,040 -- INFO -- CLI App Started
+2025-04-27 19:45:41,608 -- INFO -- CLI App Started
+2025-04-27 19:47:04,132 -- INFO -- CLI App Started
+2025-04-27 19:47:05,154 -- ERROR -- IDK what happened but sumn went wrong with the view all students method: can only concatenate str (not "int") to str
+2025-04-27 19:47:13,061 -- INFO -- CLI App Started
+2025-04-27 19:47:19,171 -- ERROR -- IDK what happened but sumn went wrong with the view all students method: can only concatenate str (not "int") to str
+2025-04-27 19:47:50,865 -- INFO -- CLI App Started
+2025-04-27 19:53:58,072 -- INFO -- CLI App Started
+2025-04-27 20:05:38,027 -- ERROR -- Value Error: Please write 10 or 12 digit Personal ID number
+2025-04-27 20:05:56,594 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:06:11,840 -- WARNING -- Student already exists
+2025-04-27 20:08:46,514 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:17:01,339 -- INFO -- CLI App Started
+2025-04-27 20:17:06,294 -- INFO -- Student not found
+2025-04-27 20:17:51,535 -- INFO -- CLI App Started
+2025-04-27 20:17:57,342 -- INFO -- Student not found
+2025-04-27 20:25:48,189 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:26:05,336 -- ERROR -- Value Error: Please write 10 or 12 digit Personal ID number
+2025-04-27 20:26:17,480 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:27:14,057 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:34:08,441 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:35:18,766 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:35:37,483 -- ERROR -- Value Error: Please write 10 or 12 digit Personal ID number
+2025-04-27 20:35:45,631 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:36:36,807 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:37:21,591 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:46:47,370 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:51:35,500 -- ERROR -- Value Error: wrong grade format
+2025-04-27 20:53:33,353 -- ERROR -- Value Error: wrong grade format
+2025-04-27 21:04:12,989 -- ERROR -- Value Error: wrong grade format
+2025-04-27 21:04:42,207 -- ERROR -- Value Error: wrong grade format
+2025-04-27 21:05:22,197 -- ERROR -- Value Error: wrong grade format
+2025-04-27 21:05:53,562 -- ERROR -- Value Error: wrong grade format

@@ -1,0 +1,8 @@
+2025-04-23 18:21:56,661 -- INFO -- CLI App Started
+2025-04-23 18:22:03,870 -- ERROR -- Value Error: First name must only contain alphabet character
+2025-04-23 19:47:57,158 -- INFO -- CLI App Started
+2025-04-23 19:48:24,807 -- INFO -- CLI App Started
+2025-04-23 20:39:22,211 -- INFO -- CLI App Started
+2025-04-23 20:39:25,655 -- ERROR -- Value Error: First name must only contain alphabet character
+2025-04-23 20:40:16,860 -- ERROR -- Value Error: Personal ID format is wrong
+2025-04-24 10:08:55,319 -- INFO -- CLI App Started
